@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My Project</title>
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+    <%- include ('../partials/header')%>
 </head>
 <body>
+
+    <!-- uncomment this navbar if needed <%- include ('../partials/nav')%> -->
+    
     <div class="container mt-3">
         <input type="text" class="form-control mb-3" id="timer">
         <button class="btn btn-success pull-right" id="start" onclick="setTimer()">Start</button>
