@@ -8,8 +8,16 @@
     <!-- uncomment this navbar if needed <%- include ('../partials/nav')%> -->
     
     <div class="container mt-3">
-        <input type="text" class="form-control mb-3" id="timer" placeholder="00h 00m 00s">
+        <div class="input-group col-sm-8 col-md-4">
+            <input type="number" class="form-control mb-3" id="hours" placeholder="00h">
+            <input type="number" class="form-control mb-3" id="mins" placeholder="00m">
+            <input type="number" class="form-control mb-3" id="secs" placeholder="00s">
+        </div>
+        
         <button class="btn btn-success pull-right" id="start" onclick="setTimer()">Start</button>
+
+        <!-- <button class="btn btn-danger" onclick="stopTimer()">Stop</button> -->
+
         <div id="display"></div>
     </div>
     
@@ -18,11 +26,15 @@
 
 function setTimer(){
 
-    const setTime = (time) => {
-        return Math.floor(time / 10000) * 3600 + Math.floor((time % 10000) / 100) * 60 + (time % 100)
+    const setTime = (hours, mins, secs) => {
+        return hours * 3600 + mins * 60 + secs * 1
     }
 
-    let timer = setTime(document.getElementById('timer').value)
+    const h = document.getElementById('hours').value
+    const m = document.getElementById('mins').value
+    const s = document.getElementById('secs').value
+
+    let timer = setTime(h, m, s)
 
     let x = setInterval(() => {
         
@@ -42,9 +54,11 @@ function setTimer(){
 
 
     }, 1000)
-
-    
 }
+
+// function stopTimer(){
+
+// }
 </script>
 </body>
 </html>
