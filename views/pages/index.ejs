@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <%- include ('../partials/header')%>
+    <title>Countdown Timer</title>
 </head>
 <body>
 
@@ -23,7 +24,6 @@
     
 
 <script>
-
 function setTimer(){
 
     const setTime = (hours, mins, secs) => {
@@ -42,23 +42,22 @@ function setTimer(){
         let minutes = Math.floor((timer % 3600) / 60);
         let seconds = Math.floor(timer % 60);
         timer -= 1;
-        document.getElementById("display").innerHTML = hours + "h " + minutes + "m " +seconds + "s "
+        document.getElementById("display").innerHTML = hours + "h " + minutes + "m " +seconds + "s ";
+        document.getElementsByTagName("title")[0].innerHTML = hours + ":" + minutes + ":" +seconds + " - Countdown Timer";
 
         if (timer < 0){
             clearInterval(x)
             let ring = new Audio('/audio/bell.mp3')
             ring.play()
             document.getElementById("display").innerHTML = "Times Up"
+            document.getElementsByTagName("title")[0].innerHTML = "Times Up - Countdown Timer";
 
         }
 
 
     }, 1000)
-}
-
-// function stopTimer(){
-
-// }
+}   
 </script>
+
 </body>
 </html>
