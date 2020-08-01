@@ -19,7 +19,6 @@
             <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>    
         </div>
         
-
         <div id="display"></div>
     </div>
     
@@ -42,9 +41,11 @@ function setTimer(){
         document.getElementById("start").innerHTML = "Stop"
         if(tmpTime){ timer = tmpTime }
         intervalID = setInterval(function(){ start() }, 1000) 
-    }else{
+    }else if(status == 'Stop'){
         document.getElementById("start").innerHTML = "Start"
         clearInterval(intervalID)
+    }else{
+        resetTimer()
     }
 
     let start = () => {
@@ -57,10 +58,10 @@ function setTimer(){
         document.getElementsByTagName("title")[0].innerHTML = hours + ":" + minutes + ":" +seconds + " - Countdown Timer"
 
         if (timer < 0){
-            clearInterval(intervalID)
             let ring = new Audio('/audio/bell.mp3')
             ring.play()
             document.getElementById("display").innerHTML = "Times Up"
+            document.getElementById("start").innerHTML = "OK"
             document.getElementsByTagName("title")[0].innerHTML = "Times Up - Countdown Timer"
         }
     }
