@@ -16,7 +16,7 @@
 
         <div class="btns">
             <button class="btn btn-primary" id="start" onclick="setTimer()">Start</button>
-            <button class="btn btn-secondary" onclick="stopTimer()">Reset</button>    
+            <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>    
         </div>
         
 
@@ -25,28 +25,39 @@
     
 
 <script>
-let count
+
+let intervalID
+let tmpTime
 
 function setTimer(){
 
     const h = document.getElementById('hours').value
     const m = document.getElementById('mins').value
     const s = document.getElementById('secs').value
-
     let timer = h * 3600 + m * 60 + s * 1
 
-    count = setInterval(function(){ start() }, 1000) 
+    let status = document.getElementById("start").innerHTML
+
+    if( status == 'Start' ){
+        document.getElementById("start").innerHTML = "Stop"
+        if(tmpTime){ timer = tmpTime }
+        intervalID = setInterval(function(){ start() }, 1000) 
+    }else{
+        document.getElementById("start").innerHTML = "Start"
+        clearInterval(intervalID)
+    }
 
     let start = () => {
         let hours = Math.floor(timer / 3600)
         let minutes = Math.floor((timer % 3600) / 60)
         let seconds = Math.floor(timer % 60)
         timer -= 1;
+        tmpTime = timer
         document.getElementById("display").innerHTML = hours + "h " + minutes + "m " +seconds + "s "
         document.getElementsByTagName("title")[0].innerHTML = hours + ":" + minutes + ":" +seconds + " - Countdown Timer"
 
         if (timer < 0){
-            clearInterval(count)
+            clearInterval(intervalID)
             let ring = new Audio('/audio/bell.mp3')
             ring.play()
             document.getElementById("display").innerHTML = "Times Up"
@@ -55,8 +66,10 @@ function setTimer(){
     }
 }
 
-function stopTimer(){
-    clearInterval(count)
+function resetTimer(){
+    clearInterval(intervalID)
+    tmpTime = undefined
+    document.getElementById("start").innerHTML = "Start"
     document.getElementById("display").innerHTML = ""
     document.getElementsByTagName("title")[0].innerHTML = "Countdown Timer"
 }
