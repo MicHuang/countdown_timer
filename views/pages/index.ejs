@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
     <%- include ('../partials/header')%>
-    <title>Countdown Timer</title>
 </head>
 <body>
 
     <!-- uncomment this navbar if needed <%- include ('../partials/nav')%> -->
     
     <div class="container mt-3">
-        <div class="input-group col-sm-8 col-md-4">
+        <div class="input-group">
             <input type="number" class="form-control mb-3" id="hours" placeholder="00h">
             <input type="number" class="form-control mb-3" id="mins" placeholder="00m">
             <input type="number" class="form-control mb-3" id="secs" placeholder="00s">
         </div>
-        
-        <button class="btn btn-success pull-right" id="start" onclick="setTimer()">Start</button>
 
-        <!-- <button class="btn btn-danger" onclick="stopTimer()">Stop</button> -->
+        <div class="btns">
+            <button class="btn btn-primary" id="start" onclick="setTimer()">Start</button>
+            <button class="btn btn-secondary" onclick="">Reset</button>    
+        </div>
+        
 
         <div id="display"></div>
     </div>
@@ -26,37 +27,36 @@
 <script>
 function setTimer(){
 
-    const setTime = (hours, mins, secs) => {
-        return hours * 3600 + mins * 60 + secs * 1
+const setTime = (hours, mins, secs) => {
+    return hours * 3600 + mins * 60 + secs * 1
+}
+
+const h = document.getElementById('hours').value
+const m = document.getElementById('mins').value
+const s = document.getElementById('secs').value
+
+let timer = setTime(h, m, s)
+
+let count = setInterval(() => { start() }, 1000)
+
+let start = () => {
+    let hours = Math.floor(timer / 3600);
+    let minutes = Math.floor((timer % 3600) / 60);
+    let seconds = Math.floor(timer % 60);
+    timer -= 1;
+    document.getElementById("display").innerHTML = hours + "h " + minutes + "m " +seconds + "s ";
+    document.getElementsByTagName("title")[0].innerHTML = hours + ":" + minutes + ":" +seconds + " - Countdown Timer";
+
+    if (timer < 0){
+        clearInterval(count)
+        let ring = new Audio('/audio/bell.mp3')
+        ring.play()
+        document.getElementById("display").innerHTML = "Times Up"
+        document.getElementsByTagName("title")[0].innerHTML = "Times Up - Countdown Timer";
+
     }
-
-    const h = document.getElementById('hours').value
-    const m = document.getElementById('mins').value
-    const s = document.getElementById('secs').value
-
-    let timer = setTime(h, m, s)
-
-    let x = setInterval(() => {
-        
-        let hours = Math.floor(timer / 3600);
-        let minutes = Math.floor((timer % 3600) / 60);
-        let seconds = Math.floor(timer % 60);
-        timer -= 1;
-        document.getElementById("display").innerHTML = hours + "h " + minutes + "m " +seconds + "s ";
-        document.getElementsByTagName("title")[0].innerHTML = hours + ":" + minutes + ":" +seconds + " - Countdown Timer";
-
-        if (timer < 0){
-            clearInterval(x)
-            let ring = new Audio('/audio/bell.mp3')
-            ring.play()
-            document.getElementById("display").innerHTML = "Times Up"
-            document.getElementsByTagName("title")[0].innerHTML = "Times Up - Countdown Timer";
-
-        }
-
-
-    }, 1000)
-}   
+}
+} 
 </script>
 
 </body>
