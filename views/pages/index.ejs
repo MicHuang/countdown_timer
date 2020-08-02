@@ -4,22 +4,42 @@
     <%- include ('../partials/header')%>
 </head>
 <body>
-
-    <!-- uncomment this navbar if needed <%- include ('../partials/nav')%> -->
     
-    <div class="container mt-3">
-        <div class="input-group">
-            <input type="number" class="form-control mb-3" id="hours" placeholder="00h">
-            <input type="number" class="form-control mb-3" id="mins" placeholder="00m">
-            <input type="number" class="form-control mb-3" id="secs" placeholder="00s">
+    <div class="wrapper">
+        
+        <%- include ('../partials/nav')%>
+
+        <!-- Page Content -->
+        <div class="container mt-3">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+        
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Toggle Sidebar</span>
+                    </button>
+        
+                </div>
+            </nav>
+
+            <div class="input-group">
+                <input type="number" class="form-control mb-3" id="hours" placeholder="00h">
+                <input type="number" class="form-control mb-3" id="mins" placeholder="00m">
+                <input type="number" class="form-control mb-3" id="secs" placeholder="00s">
+            </div>
+    
+            <div class="btns">
+                <button class="btn btn-primary" id="start" onclick="setTimer()">Start</button>
+                <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>    
+            </div>
+            
+            <div id="display"></div>
         </div>
 
-        <div class="btns">
-            <button class="btn btn-primary" id="start" onclick="setTimer()">Start</button>
-            <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>    
-        </div>
+        <!-- Dark Overlay element -->
+        <div class="overlay"></div>
         
-        <div id="display"></div>
     </div>
     
 
@@ -74,6 +94,31 @@ function resetTimer(){
     document.getElementById("display").innerHTML = ""
     document.getElementsByTagName("title")[0].innerHTML = "Countdown Timer"
 }
+</script>
+
+<script>
+$(document).ready(function () {
+
+    $('#dismiss, .overlay').on('click', function () {
+        // open or close navbar
+        $('#sidebar').toggleClass('active');
+        // open or close overlay
+        $('.overlay').toggleClass('active');
+    });
+
+    $('#sidebarCollapse').on('click', function () {
+        // open or close navbar
+        $('#sidebar').toggleClass('active');
+        // open or close overlay
+        $('.overlay').toggleClass('active');
+        // close dropdowns
+        $('.collapse.in').toggleClass('in');
+        // and also adjust aria-expanded attributes we use for the open/closed arrows
+        // in our CSS
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+
+});
 </script>
 
 </body>
