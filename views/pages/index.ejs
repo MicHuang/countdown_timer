@@ -10,31 +10,31 @@
         <%- include ('../partials/nav')%>
 
         <!-- Page Content -->
-        <div class="container mt-3">
+        <div class="content mt-3">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
         
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span>Toggle Sidebar</span>
+                    <button type="button" id="sidebarCollapse" class="btn btn-light">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-justify" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                          </svg>
                     </button>
         
                 </div>
             </nav>
 
-            <div class="input-group">
-                <input type="number" class="form-control mb-3" id="hours" placeholder="00h">
-                <input type="number" class="form-control mb-3" id="mins" placeholder="00m">
-                <input type="number" class="form-control mb-3" id="secs" placeholder="00s">
-            </div>
-    
-            <div class="btns">
-                <button class="btn btn-primary" id="start" onclick="setTimer()">Start</button>
-                <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>    
+            
+
+            <div class="board"> 
+                <div id="display"></div>
+
+                <div class="btns">
+                    <button class="btn btn-primary" id="start" onclick="setTimer()">Start</button>
+                    <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>    
+                </div>  
             </div>
             
-            <div id="display"></div>
         </div>
 
         <!-- Dark Overlay element -->
@@ -99,7 +99,11 @@ function resetTimer(){
 <script>
 $(document).ready(function () {
 
-    $('#dismiss, .overlay').on('click', function () {
+    $('#sideStart').on('click', function (){
+        $('.btns > button').toggleClass('active');
+    });
+
+    $('#dismiss, .overlay, #sideStart').on('click', function () {
         // open or close navbar
         $('#sidebar').toggleClass('active');
         // open or close overlay
@@ -112,10 +116,6 @@ $(document).ready(function () {
         // open or close overlay
         $('.overlay').toggleClass('active');
         // close dropdowns
-        $('.collapse.in').toggleClass('in');
-        // and also adjust aria-expanded attributes we use for the open/closed arrows
-        // in our CSS
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
 
 });
