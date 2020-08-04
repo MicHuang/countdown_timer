@@ -49,6 +49,7 @@ html, body {
       }
   
       li {
+        text-align: center;
         a {
           padding: 10px;
           font-size: 1.1em;
@@ -66,6 +67,12 @@ html, body {
         }
       }
     } 
+
+    .social {
+      position: fixed;
+      bottom: 10px;
+      width: 250px;
+    }
 
     #dismiss {
         width: 30px;
@@ -93,7 +100,7 @@ html, body {
     color: #999;
   }
   
-  a, svg {
+  a, i {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
