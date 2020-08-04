@@ -16,7 +16,7 @@
                 <div class="container-fluid">
         
                     <button type="button" id="sidebarCollapse" class="btn btn-light">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-justify" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-justify" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
                           </svg>
                     </button>
@@ -31,7 +31,7 @@
 
                 <div class="btns">
                     <button class="btn btn-primary" id="start" onclick="setTimer()">Start</button>
-                    <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>    
+                    <button class="btn btn-secondary" id="reset" onclick="resetTimer()">Reset</button>    
                 </div>  
             </div>
             
@@ -59,10 +59,12 @@ function setTimer(){
 
     if( status == 'Start' ){
         document.getElementById("start").innerHTML = "Stop"
+        document.getElementById("sideStart").innerHTML = "Stop"
         if(tmpTime){ timer = tmpTime }
         intervalID = setInterval(function(){ start() }, 1000) 
     }else if(status == 'Stop'){
         document.getElementById("start").innerHTML = "Start"
+        document.getElementById("sideStart").innerHTML = "Start"
         clearInterval(intervalID)
     }else{
         resetTimer()
@@ -82,6 +84,7 @@ function setTimer(){
             ring.play()
             document.getElementById("display").innerHTML = "Times Up"
             document.getElementById("start").innerHTML = "OK"
+            document.getElementById("sideStart").innerHTML = "OK"
             document.getElementsByTagName("title")[0].innerHTML = "Times Up - Countdown Timer"
         }
     }
@@ -91,6 +94,7 @@ function resetTimer(){
     clearInterval(intervalID)
     tmpTime = undefined
     document.getElementById("start").innerHTML = "Start"
+    document.getElementById("sideStart").innerHTML = "Start"
     document.getElementById("display").innerHTML = ""
     document.getElementsByTagName("title")[0].innerHTML = "Countdown Timer"
 }
@@ -100,10 +104,14 @@ function resetTimer(){
 $(document).ready(function () {
 
     $('#sideStart').on('click', function (){
+        $('.btns > button').addClass('active');
+    });
+
+    $('#reset').on('click', function (){
         $('.btns > button').toggleClass('active');
     });
 
-    $('#dismiss, .overlay, #sideStart').on('click', function () {
+    $('#dismiss, .overlay, #sideStart, #reset').on('click', function () {
         // open or close navbar
         $('#sidebar').toggleClass('active');
         // open or close overlay
